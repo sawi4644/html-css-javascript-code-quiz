@@ -9,7 +9,7 @@ const questions = [{
 // WHEN I click the start button
 // THEN a timer starts and I am presented with a question
 //divs : start, question, timer 
-var timer = 30
+var timer = 31
 
 $("#start").on("click", function () {
     $("#question").text(questions[0].question);
