@@ -4,7 +4,7 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+/*creating hue for back of page(correct/incorrect)*/
 :root {
     --hue-neutral: 200;
     --hue-wrong: 0;
@@ -24,4 +24,7 @@ body {
 }
 body.correct{
     --hue: var(--hue-correct);
+}
+body.wrong{
+    --hue: var(--hue-wrong);
 }
