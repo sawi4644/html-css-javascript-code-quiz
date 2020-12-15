@@ -2,55 +2,86 @@ const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 
-const questionElement= document.getElementById('question')
+const questionElement = document.getElementById('question')
 
-const answerButtonsElement= document.getElementById('answer-buttons')
+const answerButtonsElement = document.getElementById('answer-buttons')
 
 
 
 let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
+nextButton.addEventListener('click', () =>{
+    currentQuestionIndex++
+    setNextQuestion()
+})
 
 
-function startGame(){
+function startGame() {
     startButton.classList.add('hide')
-    shuffledQuestions= questions.sort(()=> Math.random()-.5)
-    currentQuestionIndex= 0
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
 
 }
 
-function setNextQuestion(){
+function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
 
 }
 
-function showQuestion(question){
-    questionElement.innerText= question.question
-    question.answers.forEach(answer=> {
-        const button= document.createElement('button')
-        button.innerText=answer.text
+function showQuestion(question) {
+    questionElement.innerText = question.question
+    question.answers.forEach(answer => {
+        const button = document.createElement('button')
+        button.innerText = answer.text
         button.classList.add('btn')
-        if (answer.correct){
-            button.dataset.correct= answer.correct
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
         }
         button.addEventListener('click', selectAnswer)
         answerButtonsElement.appendChild(button)
     })
 }
 
-function resetState(){
+function resetState() {
+    clearStatusClass(document.body)
     nextButton.classList.add('hide')
-    while(answerButtonsElement.firstChild){
+    while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild
-        (answerButtonsElement.firstChild)
+            (answerButtonsElement.firstChild)
     }
 }
-function selectAnswer(e){
+function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+    if(shuffledQuestions.length> currentQuestionIndex +1){
+        nextButton.classList.remove('hide')
+    } else{
+        startButton.innerText= 'Restart'
+        startButton.classList.remove('hide')
+    }
+    nextButton.classList.remove('hide')
+}
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add('correct')
+    } else {
+        element.classList.add('wrong')
+    }
 
+}
+
+function clearStatusClass(element){
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
 }
 
 
@@ -58,9 +89,26 @@ function selectAnswer(e){
 const questions = [{
     question: "What day is Chick-fil-A closed?",
     answers: [
-        {text: "Monday", correct: false}, {text:"Tuesday", correct: false},{text:"Saturday", correct: false},{text:"Sunday", correct: true}]
+        { text: "Monday", correct: false }, { text: "Tuesday", correct: false }, { text: "Saturday", correct: false }, { text: "Sunday", correct: true }]
 }, {
-    question: "whats up"
+    question: "Who is Childish Gambino",
+    answers: [
+        { text: "Donald Glover", correct: true }, { text: "Eminem", correct: false }, { text: "Pink", correct: false }, { text: "Ryan Gosling", correct: false }]
+}, {
+    question: "Who is not one of the Avengers?",
+    answers: [
+        { text: "Iron Man", correct: false }, { text: "Spiderman", correct: true }, { text: "Captain America", correct: false }, { text: "Thor", correct: false }]
+
+}, {
+    question: "What brand is not designer?",
+    answers: [
+        { text: "Louis Vuitton", correct: false }, { text: "Nike", correct: true }, { text: "Supreme", correct: false }, { text: "Givenchy", correct: false }]
+
+}, {
+    question: "Which drink is not a soda?",
+    answers: [
+        { text: "Sprite", correct: false }, { text: "Root Beer", correct: false }, { text: "Wine", correct: true }, { text: "Dr.Pepper", correct: false }]
+
 }]
 
 // WHEN I click the start button
@@ -72,14 +120,14 @@ const questions = [{
 //     $("#question").text(questions[0].question);
 //     //timer
 //     setInterval(countdown,1000)
-    
-    
+
+
 
 // })
 // function countdown(){
 //     timer--
 //     $("#timer").text(timer)
-    
+
 // }
 // WHEN I answer a question
 // THEN I am presented with another question
