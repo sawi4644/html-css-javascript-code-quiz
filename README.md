@@ -30,7 +30,7 @@ THEN I can save my initials and score
 
 # Screen Shots of Deployed Spot
 
-![updated-webpage](Assets/home.png)
-![updated-webpage](Assets/alert.png)
-![updated-webpage](Assets/password.png)
+![updated-webpage](assets/home.png)
+![updated-webpage](assets/greenred.png)
+
 
