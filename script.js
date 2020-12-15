@@ -1,29 +1,51 @@
+const startButton = document.getElementById('start-btn')
+const questionContainerElement = document.getElementById('question-container')
+
+startButton.addEventListener('click', startGame)
+
+
+function startGame(){
+    console.log('started')
+    startButton.classList.add('hide')
+    questionContainerElement.classList.remove('hide')
+
+}
+
+function setNextQuestion(){
+
+}
+
+function selectAnswer(){
+
+}
+
+
 //Array for questions
-const questions = [{
-    question: "What day is Chick-fil-A closed?",
-    answers: ["Monday", "Tuesday", "Saturday", "Sunday"]
-}, {
-    question: "whats up"
-}]
+// const questions = [{
+//     question: "What day is Chick-fil-A closed?",
+//     answers: ["Monday", "Tuesday", "Saturday", "Sunday"]
+// }, {
+//     question: "whats up"
+// }]
 
 // WHEN I click the start button
 // THEN a timer starts and I am presented with a question
 //divs : start, question, timer 
-var timer = 31
+// var timer = 31
 
-$("#start").on("click", function () {
-    $("#question").text(questions[0].question);
-    //timer
-    setInterval(countdown,1000)
+// $("#start").on("click", function () {
+//     $("#question").text(questions[0].question);
+//     //timer
+//     setInterval(countdown,1000)
     
     
 
-})
-function countdown(){
-    timer--
-    $("#timer").text(timer)
+// })
+// function countdown(){
+//     timer--
+//     $("#timer").text(timer)
     
-}
+// }
 // WHEN I answer a question
 // THEN I am presented with another question
 
