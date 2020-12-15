@@ -1,32 +1,67 @@
 const startButton = document.getElementById('start-btn')
+const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
+
+const questionElement= document.getElementById('question')
+
+const answerButtonsElement= document.getElementById('answer-buttons')
+
+
+
+let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
 
 
 function startGame(){
-    console.log('started')
     startButton.classList.add('hide')
+    shuffledQuestions= questions.sort(()=> Math.random()-.5)
+    currentQuestionIndex= 0
     questionContainerElement.classList.remove('hide')
+    setNextQuestion()
 
 }
 
 function setNextQuestion(){
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
 
 }
 
-function selectAnswer(){
+function showQuestion(question){
+    questionElement.innerText= question.question
+    question.answers.forEach(answer=> {
+        const button= document.createElement('button')
+        button.innerText=answer.text
+        button.classList.add('btn')
+        if (answer.correct){
+            button.dataset.correct= answer.correct
+        }
+        button.addEventListener('click', selectAnswer)
+        answerButtonsElement.appendChild(button)
+    })
+}
+
+function resetState(){
+    nextButton.classList.add('hide')
+    while(answerButtonsElement.firstChild){
+        answerButtonsElement.removeChild
+        (answerButtonsElement.firstChild)
+    }
+}
+function selectAnswer(e){
 
 }
 
 
-//Array for questions
-// const questions = [{
-//     question: "What day is Chick-fil-A closed?",
-//     answers: ["Monday", "Tuesday", "Saturday", "Sunday"]
-// }, {
-//     question: "whats up"
-// }]
+// Array for questions
+const questions = [{
+    question: "What day is Chick-fil-A closed?",
+    answers: [
+        {text: "Monday", correct: false}, {text:"Tuesday", correct: false},{text:"Saturday", correct: false},{text:"Sunday", correct: true}]
+}, {
+    question: "whats up"
+}]
 
 // WHEN I click the start button
 // THEN a timer starts and I am presented with a question
